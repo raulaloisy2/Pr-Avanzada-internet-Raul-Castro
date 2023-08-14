@@ -11,15 +11,15 @@
 <style>
     #mycanvas{
 
-        width: 600px;
-        height: 300px;
+        
         border: 1px solid black;
     }
 </style>
 
 <body style="background-color: white">
 
-    <canvas id="mycanvas"> </canvas>
+    <canvas id="mycanvas" style=" width: 600px;
+    height: 300px;"> </canvas>
 
 </body>
 
@@ -36,7 +36,38 @@
 
     ctx.fillStyle = "rgba(196, 60, 228, 0.8)";
     ctx.fillRect (90, 88, 50, 50);
- 
+
+
+    ctx.fillStyle = "red";
+    ctx.beginPath();
+    ctx. moveTo(185,10);
+    ctx.lineTo(185,60);
+    ctx.lineTo(125,60);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(125,60);
+    ctx.lineTo(185, 90);
+    ctx.stroke();
+    ctx.closePath();
+
+
+    ctx.fillStyle ="yellow";
+    
+    ctx.beginPath();
+    ctx.arc(230, 95,20,0, 2* Math.PI);
+    ctx.fill();
+    
+
+    ctx.fillStyle = "blue"
+    ctx.beginPath();
+    ctx.arc(230, 95,20,0, 2* Math.PI);
+    ctx.stroke();
+
+    ctx.fillStyle = "blue"
+    ctx.beginPath();
+    ctx.arc(279, 95,20,0, 2* Math.PI);
+    ctx.stroke();
+
 </script>
 
 </html>
