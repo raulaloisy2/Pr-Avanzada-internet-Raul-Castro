@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Castro Cota Raul Aloisy</title>
+
+</head>
+<style>
+    #mycanvas{
+
+        width: 600px;
+        height: 300px;
+        border: 1px solid black;
+    }
+</style>
+
+<body style="background-color: white">
+
+    <canvas id="mycanvas"> </canvas>
+
+</body>
+
+<script>
+
+    var canvas = document.getElementById('mycanvas'); 
+    var ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = "cyan";
+    ctx.fillRect (10, 10, 50, 50);
+
+    ctx.fillStyle = "red";
+    ctx.fillRect (50, 50, 50, 50);
+
+    ctx.fillStyle = "rgba(196, 60, 228, 0.8)";
+    ctx.fillRect (90, 88, 50, 50);
+ 
+</script>
+
+</html>
