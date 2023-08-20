@@ -20,7 +20,7 @@
 
     <canvas id="mycanvas" style=" width: 600px;
     height: 300px;"> </canvas>
-
+    <img id="img" src="pensando.png" style="display: none;" / >
 </body>
 
 <script>
@@ -67,6 +67,11 @@
     ctx.beginPath();
     ctx.arc(279, 95,20,0, 2* Math.PI);
     ctx.stroke();
+
+    
+    ctx = canvas.getContext("2d");
+    var img = document.getElementById("img");
+    ctx.drawImage(img,0,60, 64,80);
 
 </script>
 
