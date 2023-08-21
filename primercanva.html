@@ -10,24 +10,71 @@
 </head>
 <style>
     #mycanvas{
-
-        
         border: 1px solid black;
+        background-color: white;
     }
 </style>
 
-<body style="background-color: white">
+<body style="background-color: rgb(158, 142, 142)">
 
-    <canvas id="mycanvas" style=" width: 600px;
-    height: 300px;"> </canvas>
+  <center> <canvas id="mycanvas"  width="500" height="500"> </canvas> </center> 
     <img id="img" src="pensando.png" style="display: none;" / >
 </body>
 
 <script>
-
+    var figura = true;
+    var color;
     var canvas = document.getElementById('mycanvas'); 
     var ctx = canvas.getContext('2d');
 
+    function random_rgba() {
+        var o = Math.round, r = Math.random, s = 255;
+        return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+    }
+    canvas.addEventListener("click", (e) => {
+
+        
+        console.log("Hola")
+        console.log(e)
+        ctx.fillStyle =color;
+
+        if(figura){
+            
+            ctx.beginPath();
+            ctx.arc(e.offsetX, e.offsetY,40,0, 2* Math.PI);
+            ctx.fill();
+            ctx.stroke();
+        }else{
+
+            ctx.fillRect (e.offsetX-25, e.offsetY-25  , 50, 50);
+            ctx.strokeRect(e.offsetX-25, e.offsetY-25,50,50);    
+
+        }
+     
+    })
+
+    canvas.addEventListener("mouseover",(e) => {
+        console.log("mouseover");
+        color = random_rgba();
+
+    })
+    canvas.addEventListener("mouseout", (e) =>{
+        figura = !figura;
+
+    })
+
+    canvas.addEventListener("mousemove", (e) =>{
+        console.log("mousemove");
+        ctx.beginPath();
+        ctx.arc(e.offsetX, e.offsetY,2,0, 2* Math.PI);
+        ctx.fill();
+        ctx.stroke();
+        ctx.closePath();
+
+    })
+
+
+    /*
     ctx.fillStyle = "cyan";
     ctx.fillRect (10, 10, 50, 50);
 
@@ -51,11 +98,7 @@
     ctx.closePath();
 
 
-    ctx.fillStyle ="yellow";
-    
-    ctx.beginPath();
-    ctx.arc(230, 95,20,0, 2* Math.PI);
-    ctx.fill();
+
     
 
     ctx.fillStyle = "blue"
@@ -72,7 +115,7 @@
     ctx = canvas.getContext("2d");
     var img = document.getElementById("img");
     ctx.drawImage(img,0,60, 64,80);
-
+*/
 </script>
 
 </html>
