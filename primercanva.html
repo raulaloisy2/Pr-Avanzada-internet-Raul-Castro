@@ -22,6 +22,7 @@
 </body>
 
 <script>
+    var clickArriba = true;;
     var figura = true;
     var color;
     var canvas = document.getElementById('mycanvas'); 
@@ -62,14 +63,32 @@
         figura = !figura;
 
     })
-
-    canvas.addEventListener("mousemove", (e) =>{
-        console.log("mousemove");
+    canvas.addEventListener("mousedown", (e) =>{
+        clickArriba=false;
         ctx.beginPath();
         ctx.arc(e.offsetX, e.offsetY,2,0, 2* Math.PI);
         ctx.fill();
         ctx.stroke();
         ctx.closePath();
+    })
+
+    canvas.addEventListener("mouseup", (e) =>{
+
+        if(!clickArriba){
+        clickArriba=true;
+        }
+    })
+    canvas.addEventListener("mousemove", (e) =>{
+
+        if(clickArriba == false){
+            console.log("mousemove");
+            ctx.beginPath();
+            ctx.arc(e.offsetX, e.offsetY,2,0, 2* Math.PI);
+            ctx.fill();
+            ctx.stroke();
+            ctx.closePath();
+        }
+       
 
     })
 
