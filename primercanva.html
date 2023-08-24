@@ -98,24 +98,44 @@
             ctx.closePath();
         }
        
-
     })
     */
 
  
+    ctx.beginPath();
+             ctx.fillStyle = "Black";
+             ctx.fillRect (x,y  , 50, 50);
+             ctx.strokeRect(x, y,50,50);
+             ctx.closePath();
 
     document.addEventListener("keydown", (e) => {
         
         console.log(e);
-        x= getRandomInt(500);
-        y = getRandomInt(500);
-        ctx.beginPath();
-        ctx.fillStyle = random_rgba();
-        ctx.fillRect (x,y  , 50, 50);
-        ctx.strokeRect(x, y,50,50);
-        
+        switch(e.keyCode){
+            case 87:
+                y-=9;
+                break;
+            case 65:    
+                x-=9;
+                break;
+            case 83:
+                y+=9;
+                 break;
+            case 68:
+                 x+=9;
+                 break;
 
-    })
+             default:
+                 break;
+        }
+             ctx.beginPath();
+             ctx.fillStyle = random_rgba();
+             ctx.fillRect (x,y  , 50, 50);
+             ctx.strokeRect(x, y,50,50);
+             ctx.closePath();
+
+         
+        })
 
 
     /*
