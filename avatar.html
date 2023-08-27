@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avatar</title>
+</head>
+
+
+
+<style>
+    #mycanvas{
+        border: 1px solid black;
+        background-color: white;
+    }
+</style>
+
+
+<body style="background-color: rgb(158, 142, 142)">
+
+    <center> <canvas id="mycanvas"  width="500" height="500"> </canvas> </center> 
+      <img id="img" src="pensando.png" style="display: none;" / >
+  </body>
+
+  <script>
+    var canvas = document.getElementById('mycanvas'); 
+    var ctx = canvas.getContext('2d');
+    
+
+
+//Fondo
+
+ctx.beginPath
+ctx.fillStyle="Cyan";
+ctx.fillRect (0,0 , 500, 500);
+ctx.fill();
+ctx.closePath();
+
+//Nubes
+
+dibujarNube(300,50);
+dibujarNube(200,100);
+dibujarNube(50,50);
+dibujarNube(400,80);
+
+
+//Ground    #1BC523
+
+ctx.beginPath();
+ctx.fillStyle="#1BC523";
+ctx.fillRect (0,300 , 500,200);
+ctx.fill();
+ctx.closePath();
+
+
+//Cuerpo
+ctx.beginPath();
+ctx.fillStyle = "red";
+ctx.arc(250, 235, 50, 0, Math.PI);
+ctx.arc(247, 280, 70, 0, Math.PI*1.1);
+
+ctx.fill();
+ctx.closePath();
+
+ctx.beginPath();
+ctx.fillStyle = "red";
+//ctx.arc(250, 280, 70, Math.PI, Math.PI*1.9);
+ctx.fill();
+ctx.closePath();
+
+
+//Raya BLanca
+ctx.beginPath();
+ctx.fillStyle = "white";
+ctx.arc(250, 290,30, 0, Math.PI);
+ctx.fill();
+ctx.closePath();
+ctx.beginPath();
+ctx.fillStyle = "Red";
+ctx.arc(250, 280,30, 0, Math.PI);
+ctx.fill();
+ctx.closePath();
+
+//Cabeza.
+
+var xCabeza=250;
+var yCabeza=26;
+ctx.beginPath();
+ctx.fillStyle = "red";
+ctx.arc(xCabeza, 230+yCabeza, 51, Math.PI,2* Math.PI);
+ctx.fill();
+ctx.closePath();
+ctx.beginPath();
+ctx.fillStyle = "red";
+ctx.arc(xCabeza, 210+yCabeza, 47, Math.PI,2* Math.PI);
+ctx.fill();
+ctx.closePath();
+
+
+//Brazos
+xBrazo=118;
+yBrazo=260;
+xBrazoSeparacion=160;
+ctx.beginPath();
+ctx.fillStyle="Red";
+//Brazo izq Horizontal
+ctx.fillRect (xBrazo,yBrazo, 70,16);
+
+//Brazo derecho Horizontal
+ctx.fillRect (xBrazo+xBrazoSeparacion,yBrazo     , 100,16);
+ctx.closePath();
+
+
+
+//Brazo izq Vertical
+
+ctx.fillRect (xBrazo,yBrazo , 16,62);
+ctx.closePath();
+//Brazo derecho Vertical
+
+ctx.fillRect (xBrazo+250,yBrazo     , 16,62);
+ctx.closePath();
+
+//Punos
+
+
+ctx.beginPath();
+ctx.fillStyle="White";
+//Puno izq
+ctx.fillRect (xBrazo-10,yBrazo+55, 35,20);
+//Puno derecho
+ctx.fillRect (xBrazo+240,yBrazo+55     , 35,20);
+//Dedos Izq
+ctx.fillStyle="Black";
+ctx.strokeRect(xBrazo-10,yBrazo+55, 35,20);
+ctx.strokeRect(xBrazo,yBrazo+55, 15,20);
+ctx.strokeRect(xBrazo-6,yBrazo+55, 10,20);
+//DedosD Der
+ctx.strokeRect (xBrazo+240,yBrazo+55     , 35,20);
+ctx.strokeRect(xBrazo+255,yBrazo+55, 15,20);
+ctx.strokeRect(xBrazo+6+240,yBrazo+55, 10,20);
+ctx.stroke();
+ctx.closePath();
+
+
+// Ojos
+
+xSeparacion=55;
+xOjos=220;
+yOjos=220;
+ctx.beginPath();
+ctx.fillStyle = "white";
+
+ctx.arc(xOjos, yOjos, 15, 0, Math.PI * 2);
+ctx.arc(xOjos+xSeparacion, yOjos, 15, 0, Math.PI * 2);
+ctx.fill();
+ctx.closePath();
+
+// Pupilas
+ctx.beginPath();
+ctx.fillStyle = "black";
+ctx.arc(xOjos-5, yOjos, 10, 0, Math.PI * 2);
+ctx.arc(xOjos+xSeparacion+8, yOjos, 10, 0, Math.PI * 2);
+
+ctx.fill();
+ctx.closePath();
+
+
+
+
+
+//Boca Inferior
+
+ctx.beginPath();
+ctx.ellipse(250, 260, 40,20, 176, 0, Math.PI * 2);
+ctx.fillStyle = "#F39D4D";
+ctx.fill();
+ctx.closePath()
+
+//Boca Superior;
+ctx.beginPath();
+ctx.ellipse(250, 240, 30,20, 176, 0, Math.PI * 2);
+ctx.fillStyle = "#F39D4D";
+ctx.fill();
+
+ctx.closePath();
+
+//Raya Boca
+
+ctx.beginPath();
+ctx.fillStyle = "#7D4F25";
+ctx.arc(xCabeza, yCabeza+240, 10, 0,2* Math.PI);
+
+//ctx.stroke();
+ctx.closePath();
+
+//Nariz
+ctx.beginPath();
+ctx.ellipse(240, 220, 13,9, 82, 1, Math.PI * 2);
+ctx.fillStyle = "Black";
+ctx.fill();
+ctx.closePath();
+
+//Brillo nariz
+
+ctx.beginPath();
+
+ctx.ellipse(235, 214, 5,2.5, 82, 1, Math.PI * 2);
+ctx.fillStyle = "White";
+ctx.fill();
+ctx.closePath();
+
+
+//Lengua
+ctx.beginPath();
+ctx.ellipse(250, 250, 13,10, 90,0, Math.PI * 2);
+ctx.fillStyle = "Black";
+ctx.fill();
+ctx.closePath();
+
+ctx.beginPath();
+ctx.ellipse(253, 250, 6,3, 90,0, Math.PI * 2);
+ctx.fillStyle = "#FC4865";
+ctx.fill();
+ctx.closePath();
+
+
+
+
+
+
+
+
+//Piernas
+xPierna=220;
+yPierna=315;
+xPiernaSeparacion=53;
+ctx.beginPath();
+ctx.fillStyle="Red";
+ctx.fillRect (xPierna,yPierna , 10,80);
+ctx.fillRect (xPierna+xPiernaSeparacion,yPierna , 10,80);
+ctx.closePath();
+
+//Zapatos
+
+xZapato=198;
+yZapato=390;
+xZapatoSeparacion=50
+ctx.beginPath();
+ctx.fillStyle="Red";
+ctx.fillRect (xZapato,yZapato ,  35,25);
+ctx.fillRect (xPierna+xZapatoSeparacion,yZapato, 35,25);
+ctx.closePath();
+
+ctx.fillStyle="Yellow";
+ctx.fillRect (xZapato+10,yZapato ,  12,23);
+ctx.fillRect (xPierna+xZapatoSeparacion+10,yZapato, 12,23);
+ctx.closePath();
+//Calcetas
+ctx.beginPath();
+ctx.fillStyle="Green";
+ctx.fillRect (xZapato+18,yZapato-10 ,  18,10);
+ctx.fillRect (xZapato+22+xZapatoSeparacion,yZapato-10, 18,10);
+ctx.closePath();
+
+
+//Funcion para generar Nubes
+function dibujarNube(x, y) {
+    ctx.beginPath();
+    ctx.fillStyle = "White"; // Establece el color de relleno en blanco
+    ctx.arc(x, y, 20, 0, Math.PI * 2);
+    ctx.arc(x + 15, y - 10, 20, 0, Math.PI * 2);
+    ctx.arc(x + 30, y, 20, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.closePath();
+}
+
+
+
+  </script>
+
+
+</html>

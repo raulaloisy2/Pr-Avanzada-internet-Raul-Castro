@@ -128,7 +128,11 @@
              default:
                  break;
         }
+
+            
              ctx.beginPath();
+             ctx.fillStyle = "White";
+             ctx.fillRect(0,0,500,500);
              ctx.fillStyle = random_rgba();
              ctx.fillRect (x,y  , 50, 50);
              ctx.strokeRect(x, y,50,50);
