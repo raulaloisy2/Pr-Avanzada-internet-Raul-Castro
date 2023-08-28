@@ -28,6 +28,10 @@
     var canvas = document.getElementById('mycanvas'); 
     var ctx = canvas.getContext('2d');
     var x =200 , y =200;
+    var dir=0;
+
+
+
 
     function random_rgba() {
         var o = Math.round, r = Math.random, s = 255;
@@ -37,153 +41,90 @@
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
     }
-    /*
-    canvas.addEventListener("click", (e) => {
 
-        
-        console.log("Hola")
-        console.log(e)
-        ctx.fillStyle =color;
-
-        if(figura){
-            
-            ctx.beginPath();
-            ctx.arc(e.offsetX, e.offsetY,40,0, 2* Math.PI);
-            ctx.fill();
-            ctx.stroke();
-        }else{
-
-            ctx.fillRect (e.offsetX-25, e.offsetY-25  , 50, 50);
-            ctx.strokeRect(e.offsetX-25, e.offsetY-25,50,50);    
-
-        }
+    function repaint(){
      
-    })
-*/
-        
+        ctx.fillStyle = "aliceblue";
+        ctx.fillRect ( 0, 0,1000,1000);
+                    ctx.fillStyle = random_rgba();
+                ctx.fillRect ( x, y,40,40);
+    }
 
-    /*
-    canvas.addEventListener("mouseover",(e) => {
-        console.log("mouseover");
-        color = random_rgba();
-
-    })
-    canvas.addEventListener("mouseout", (e) =>{
-        figura = !figura;
-
-    })
-    canvas.addEventListener("mousedown", (e) =>{
-        clickArriba=false;
         ctx.beginPath();
-        ctx.arc(e.offsetX, e.offsetY,2,0, 2* Math.PI);
-        ctx.fill();
-        ctx.stroke();
+        ctx.fillStyle = "Black";
+        ctx.fillRect (x,y  , 50, 50);
+        ctx.strokeRect(x, y,50,50);
         ctx.closePath();
-    })
-
-    canvas.addEventListener("mouseup", (e) =>{
-
-        if(!clickArriba){
-        clickArriba=true;
-        }
-    })
-    canvas.addEventListener("mousemove", (e) =>{
-
-        if(clickArriba == false){
-            console.log("mousemove");
-            ctx.beginPath();
-            ctx.arc(e.offsetX, e.offsetY,2,0, 2* Math.PI);
-            ctx.fill();
-            ctx.stroke();
-            ctx.closePath();
-        }
-       
-    })
-    */
-
- 
-    ctx.beginPath();
-             ctx.fillStyle = "Black";
-             ctx.fillRect (x,y  , 50, 50);
-             ctx.strokeRect(x, y,50,50);
-             ctx.closePath();
-
     document.addEventListener("keydown", (e) => {
-        
-        console.log(e);
+
         switch(e.keyCode){
             case 87:
+            dir=e.keyCode;
                 y-=9;
                 break;
             case 65:    
+            dir=e.keyCode;
                 x-=9;
                 break;
             case 83:
+            dir=e.keyCode;
                 y+=9;
                  break;
             case 68:
+            dir=e.keyCode;
                  x+=9;
                  break;
 
              default:
                  break;
+        };
+    });
+        function update(){
+
+            switch (dir) {
+                case 87:  
+                    y -= 8;
+                    if(y<-50){y=550}
+                    break;
+    
+                case 83:
+                    y += 8;
+                    if(y>550){y=0}
+                    break;
+    
+                case 68:
+                    x += 8;
+                    if(x>550){x=-550}
+                    break;
+    
+                    case 65:
+                    x -= 8;
+                    if(x<-50){x=550}
+                    break;
+    
+                default:
+                    break;
+                }
+
+            repaint();
+            window.requestAnimationFrame(update);    
         }
+     
 
             
-             ctx.beginPath();
-             ctx.fillStyle = "White";
-             ctx.fillRect(0,0,500,500);
-             ctx.fillStyle = random_rgba();
-             ctx.fillRect (x,y  , 50, 50);
-             ctx.strokeRect(x, y,50,50);
-             ctx.closePath();
-
          
-        })
 
 
-    /*
-    ctx.fillStyle = "cyan";
-    ctx.fillRect (10, 10, 50, 50);
+        window.requestAnimationFrame = (function () {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 17);
+                };
+        }());
+        window.requestAnimationFrame(update);    
 
-    ctx.fillStyle = "red";
-    ctx.fillRect (50, 50, 50, 50);
-
-    ctx.fillStyle = "rgba(196, 60, 228, 0.8)";
-    ctx.fillRect (90, 88, 50, 50);
-
-
-    ctx.fillStyle = "red";
-    ctx.beginPath();
-    ctx. moveTo(185,10);
-    ctx.lineTo(185,60);
-    ctx.lineTo(125,60);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.moveTo(125,60);
-    ctx.lineTo(185, 90);
-    ctx.stroke();
-    ctx.closePath();
-
-
-
-    
-
-    ctx.fillStyle = "blue"
-    ctx.beginPath();
-    ctx.arc(230, 95,20,0, 2* Math.PI);
-    ctx.stroke();
-
-    ctx.fillStyle = "blue"
-    ctx.beginPath();
-    ctx.arc(279, 95,20,0, 2* Math.PI);
-    ctx.stroke();
-
-    
-    ctx = canvas.getContext("2d");
-    var img = document.getElementById("img");
-    ctx.drawImage(img,0,60, 64,80);
-*/
 </script>
 
 </html>
