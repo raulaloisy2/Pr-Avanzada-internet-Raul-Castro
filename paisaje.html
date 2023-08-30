@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raul Aloisy Castro Cota</title>
+</head>
+
+
+
+<style>
+    #mycanvas{
+        border: 1px solid black;
+        background-color: white;
+    }
+</style>
+
+
+<body style=" background-color: rgb(250, 226, 226);">
+
+    <center>
+
+        <canvas id="mycanvas" width="700" height="500" ></canvas>
+
+    </center>
+
+
+
+    <script>
+
+        var canvas = document.getElementById('mycanvas'); 
+        var ctx = canvas.getContext('2d');
+
+        //Fondo
+
+    ctx.beginPath();
+    ctx.fillStyle="Black";
+    ctx.fillRect (0,0 , 700, 500);
+    ctx.fill();
+    ctx.closePath();
+
+
+    //estrellas
+
+    for (var i = 0; i < 90; i++){
+        dibujarEstrella(getRandomInt(700),getRandomInt(500) ,2,8,5,"white");   
+    }
+    
+
+    //Superficie
+    ctx.beginPath();
+    ctx.fillStyle="#878A87";
+    ctx.arc(350,1000, 700, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.closePath();
+
+
+   
+    ctx.strokeStyle = "black";   
+    crater(50, 450,40,20,90, "#616161");
+    crater(100, 380,30,25,0, "#777977");
+    crater(150, 500,60,30,75, "#616161");
+    crater(200, 380,55,40,30, "#777977");
+    crater(300, 450,60,20,40, "#616161");
+    crater(400, 380,60,45,180, "#777977");
+    crater(500, 450,40,25,90, "#616161");
+    crater(600, 380,50,20,0, "#777977");
+    
+
+
+
+
+
+
+        //Bandera
+
+    //Palo
+    ctx.beginPath();
+    ctx.lineWidth=3;
+    ctx.strokeStyle = "#96A7C3";
+    ctx.moveTo(440, 350); // Punto inicial
+    ctx.lineTo(460,250 ); // Punto final
+    ctx.stroke();
+    ctx.lineWidth=1;
+    ctx.closePath();
+
+
+    
+    //bandera 
+    
+    ctx.beginPath();
+    ctx.lineWidth = 4;
+    ctx.moveTo(460, 250); // Punto inicial
+    ctx.lineTo(560, 280); // Punto 1
+    ctx.lineTo(530, 330); // Punto 2
+    ctx.lineTo(450, 300); // Punto 3
+    ctx.closePath(); // Cierra la ruta
+    ctx.stroke();
+
+    // Rellenar el área entre las líneas verde
+    ctx.fillStyle = "green";
+    ctx.fill();
+
+
+    //Color 2
+    ctx.beginPath();
+    ctx.lineWidth = 4;
+    ctx.moveTo(500, 262); // Punto inicial
+    ctx.lineTo(560, 280); // Punto 1
+    ctx.lineTo(530, 330); // Punto 2
+    ctx.lineTo(480, 310); // Punto 3
+    ctx.closePath(); // Cierra la ruta
+    ctx.stroke();
+    ctx.fillStyle = "white";
+    ctx.fill();
+
+       //Color 3
+    ctx.beginPath();
+    ctx.lineWidth = 4;
+    ctx.moveTo(530, 272); // Punto inicial
+    ctx.lineTo(560, 280); // Punto 1
+    ctx.lineTo(530, 330); // Punto 2
+    ctx.lineTo(505, 320); // Punto 3
+    ctx.closePath(); // Cierra la ruta
+    ctx.stroke();
+    ctx.fillStyle = "red";
+    ctx.fill();
+    ctx.closePath;
+       
+    //Escudo
+
+    ctx.beginPath();
+    ctx.fillStyle = "#D29C41";
+     ctx.arc(505, 293,7,0,2*Math.PI);
+     ctx.fill();
+       ctx.closePath();
+
+
+
+      //Pomo
+    ctx.beginPath();
+    ctx.fillStyle = "yellow";
+     ctx.arc(461, 254,10,0,2*Math.PI);
+     ctx.fill();
+       ctx.closePath();
+
+    function dibujarEstrella( x, y, radioExterior, radioInterior, puntas, color) {
+    
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(x + radioExterior, y);
+    
+        for (var i = 0; i < puntas * 2; i++) {
+            var radius = i % 2 === 0 ? radioExterior : radioInterior;
+            var angle = (Math.PI / puntas) * i;
+            var posX = x + Math.cos(angle) * radius;
+            var posY = y + Math.sin(angle) * radius;
+            ctx.lineTo(posX, posY);
+        }
+    
+        ctx.closePath();
+        ctx.fill();
+    }
+    
+
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+      }
+    function crater(x,y,ancho,alto,rotacion,color){
+        ctx.beginPath();
+        ctx.fillStyle= color;
+        ctx.ellipse(x, y, ancho,alto, rotacion, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.closePath();
+        console.log(color);
+    }
+
+    
+    </script>
+    
+</body>
+</html>
