@@ -36,14 +36,94 @@
 
 
 
+    class GenerarCuadro {
+        constructor(x, y , w, h,) {
+            this.x = x;
+            this.y = y;
+            this.w=w;
+            this.h=h;
+        }
+    
+        pintar(ctx) {
+            ctx.fillStyle = random_rgba();
+            ctx.fillRect(x, y, this.w,this.h);
+        }
+    }
+
+    class GenerarPared {
+        constructor(x, y, w, h) {
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+        }
+    
+        pintar(ctx) {
+            ctx.fillStyle = "Gray";
+            ctx.fillRect(this.x, this.y, this.w, this.h);
+        }
+    
+        colisionConCuadro(player) {
+            console.log(player.x)
+            if(x < this.x + this.w   && 
+                 x +player.w >this.x &&   
+                 y < this.y + this.h  &&   
+                 y + player.w > this.y){ 
+                // Colisión detectada
+                switch (dir) {
+                    case 87: // Tecla "W"
+                       y += 16;                       
+                        break;
+                    case 83: // Tecla "S"
+                       y -= 16;
+                        break;
+                    case 68: // Tecla "D"
+                        x -= 16;
+                        break;
+                    case 65: // Tecla "A"
+                        x += 16;
+                        break;
+                    default:
+                        break;
+                }
+                dir=0;
+                return true;
+            }
+            return false; // No hay colisión
+        }
+
+        static pintarParedes(ctx, paredes) {
+            for (let i = 0; i < paredes.length; i++) {
+                paredes[i].pintar(ctx);
+            }
+        }
+    }
+
+
 
     function random_rgba() {
         var o = Math.round, r = Math.random, s = 255;
-        return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+        return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')';
     }
-
+//JUGADOR
+    var player = new GenerarCuadro(x, y,40,40);
+ //WALL
+    let walls = []
+    walls.push(new GenerarPared(100, 100, 100, 20));
+    walls.push(new GenerarPared(50, 400, 300,30));
+ 
+ 
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
+    }
+
+    function verificarColisiones() {
+        for (var i = 0; i < walls.length; i++) {
+            if (walls[i].colisionConCuadro(player)) {
+                // Realiza alguna acción en caso de colisión
+                console.log("Colisión detectada con la pared " + i);
+            }
+        }
     }
 
     function repaint(){
@@ -53,19 +133,24 @@
      
         ctx.fillStyle = "aliceblue";
         ctx.fillRect ( 0, 0,1000,1000);
-        ctx.fillStyle = random_rgba();
-        ctx.fillRect ( x, y,40,40);
 
+        //Dibujar PLayer
+        player.pintar(ctx);
+        
 
         ctx.fillStyle = "Black";
         ctx.fillRect (t_x,t_y  , 50, 50);
 
         
-        ctx.fillStyle = "Gray";
-        ctx.fillRect (100,100 , 100, 20);
+        //Dibujar Paredes
+        GenerarPared.pintarParedes(ctx, walls);
+        // walls[0].pintar(ctx);
+        
                 
                 
     }
+
+    
 
         ctx.beginPath();
         ctx.fillStyle = "Black";
@@ -77,19 +162,19 @@
         switch(e.keyCode){
             case 87:
             dir=e.keyCode;
-                y-=9;
+                y-=8;
                 break;
             case 65:    
             dir=e.keyCode;
-                x-=9;
+                x-=8;
                 break;
             case 83:
             dir=e.keyCode;
-                y+=9;
+                y+=8;
                  break;
             case 68:
             dir=e.keyCode;
-                 x+=9;
+                 x+8;
                  break;
 
              default:
@@ -100,6 +185,7 @@
             
             switch (dir) {
                 case 87:  
+
                     y -= 8;
                     if(y<-50){y=550}
                     break;
@@ -122,7 +208,7 @@
                 default:
                     break;
                 }
-                
+
             if(x < t_x + 50  &&  x + 40 > t_x &&    y < t_y + 50 &&    y +40 > t_y){  
                 
                 console.log("aaaaaaa");
@@ -130,37 +216,7 @@
                 t_y= getRandomInt(460);
 
               }
-
-             if(x < w_x + 100   &&  x + 40 > w_x &&    y < w_y + 20  &&    y +40 > w_y){ 
-                
-                switch (dir) {
-                    case 87:  
-                        y -= 8;
-                      //  if(y<-50){y=550}
-                        break;
-        
-                    case 83:
-                        y += 8;
-                     //   if(y>550){y=0}
-                        break;
-        
-                    case 68:
-                        x+= 8;
-                   //     if(x>550){x=0}
-                        break;
-        
-                        case 65:
-                        x -= 8;
-                   //     if(x<-50){x=550}
-                        break;
-                    default:
-                        break;
-                    }
-
-                    dir=0;
-
-             }
-
+            verificarColisiones();
             repaint();
             window.requestAnimationFrame(update);    
         }
