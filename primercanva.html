@@ -29,6 +29,10 @@
     var ctx = canvas.getContext('2d');
     var x =200 , y =200;
     var dir=0;
+    var t_x=300;
+    var t_y=300;
+    var t_w;
+    var  w_x= 100, w_y= 100;
 
 
 
@@ -43,11 +47,24 @@
     }
 
     function repaint(){
+
+       
+     
      
         ctx.fillStyle = "aliceblue";
         ctx.fillRect ( 0, 0,1000,1000);
-                    ctx.fillStyle = random_rgba();
-                ctx.fillRect ( x, y,40,40);
+        ctx.fillStyle = random_rgba();
+        ctx.fillRect ( x, y,40,40);
+
+
+        ctx.fillStyle = "Black";
+        ctx.fillRect (t_x,t_y  , 50, 50);
+
+        
+        ctx.fillStyle = "Gray";
+        ctx.fillRect (100,100 , 100, 20);
+                
+                
     }
 
         ctx.beginPath();
@@ -55,7 +72,7 @@
         ctx.fillRect (x,y  , 50, 50);
         ctx.strokeRect(x, y,50,50);
         ctx.closePath();
-    document.addEventListener("keydown", (e) => {
+         document.addEventListener("keydown", (e) => {
 
         switch(e.keyCode){
             case 87:
@@ -80,7 +97,7 @@
         };
     });
         function update(){
-
+            
             switch (dir) {
                 case 87:  
                     y -= 8;
@@ -105,14 +122,50 @@
                 default:
                     break;
                 }
+                
+            if(x < t_x + 50  &&  x + 40 > t_x &&    y < t_y + 50 &&    y +40 > t_y){  
+                
+                console.log("aaaaaaa");
+                t_x= getRandomInt(460);
+                t_y= getRandomInt(460);
+
+              }
+
+             if(x < w_x + 100   &&  x + 40 > w_x &&    y < w_y + 20  &&    y +40 > w_y){ 
+                
+                switch (dir) {
+                    case 87:  
+                        y -= 8;
+                      //  if(y<-50){y=550}
+                        break;
+        
+                    case 83:
+                        y += 8;
+                     //   if(y>550){y=0}
+                        break;
+        
+                    case 68:
+                        x+= 8;
+                   //     if(x>550){x=0}
+                        break;
+        
+                        case 65:
+                        x -= 8;
+                   //     if(x<-50){x=550}
+                        break;
+                    default:
+                        break;
+                    }
+
+                    dir=0;
+
+             }
 
             repaint();
             window.requestAnimationFrame(update);    
         }
      
 
-            
-         
 
 
         window.requestAnimationFrame = (function () {
