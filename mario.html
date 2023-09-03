@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mario</title>
+</head>
+
+
+
+<style>
+    #mycanvas{
+        border: 1px solid black;
+        background-color: white;
+    }
+</style>
+
+
+<body style="background-color: rgb(158, 142, 142)">
+
+    <center> <canvas id="mycanvas"  width="1000" height="600"> </canvas> </center> 
+      <img id="img" src="pensando.png" style="display: none;" / >
+  </body>
+
+  <script>
+    var canvas = document.getElementById('mycanvas'); 
+    var ctx = canvas.getContext('2d');
+    
+
+
+//Fondo
+
+ctx.beginPath
+ctx.fillStyle="#A9FEFF";
+ctx.fillRect (0,0 , 1000, 600);
+ctx.fill();
+ctx.closePath();
+
+
+
+//Arbusto
+drawMarioBush(55,530);
+
+//Ground    #1BC523
+drawGround();
+
+//Cuadro Azul   
+drawCuadro(380,210,200,320,"Black");
+drawCuadro(340,175,200,355,"#0096EF");
+drawCuadro(340,175,190,350,"#71C2FF");
+drawLine(340,175,340+200,175,"Black","3");
+drawLine(340,175,340,175+355,"Black","3");
+drawCircleWithDivider(355,200,9,"Black","Black",2);
+drawCircleWithDivider(355+165,200,9,"Black","Black",2);
+drawCircleWithDivider(355+165,200+315,9,"Black","Black",2);
+//Cuadro Rosa
+drawCuadro(200,355,200,175,"Black");
+drawCuadro(160,325,200,205,"#EB9472");
+drawCuadro(160,325,190,200,"#FFC0B5");
+drawLine(160,325,360,325,"Black","3");
+drawLine(160,325,160,175+355,"Black","3");
+drawCircleWithDivider(175,345,9,"Black","Black",2);
+drawCircleWithDivider(175,345+170,9,"Black","Black",2);
+drawCircleWithDivider(175+170,345,9,"Black","Black",2);
+drawCircleWithDivider(175+170,345+170,9,"Black","Black",2);
+//Cuadro Verde
+drawCuadro(840,325,200,205,"#26662B");
+drawCuadro(840,325,190,200,"#53D770");
+drawLine(840,325,1000,325,"Black","3");
+drawLine(840,325,840,175+355,"Black","3");
+drawCircleWithDivider(855,345,9,"Black","Black",2);
+drawCircleWithDivider(855,345+170,9,"Black","Black",2);
+//Cuadros ?
+xQ1 = 200;
+yQ1=50;
+wQ = 50;
+hQ = 50;
+drawCuadro(xQ1,yQ1,wQ,hQ,"#FC9164");
+drawCuadro(xQ1+5,yQ1+5,3,3,"Black");
+drawCuadro(xQ1+5,yQ1+40,3,3,"Black");
+drawCuadro(xQ1+40,yQ1+5,3,3,"Black");
+drawCuadro(xQ1+40,yQ1+40,3,3,"Black");
+//
+ctx.strokeRect(xQ1,yQ1,wQ,hQ);
+drawCuadro(xQ1+50,yQ1,wQ,hQ,"#FC9164");
+drawCuadro(xQ1+55,yQ1+5,3,3,"Black");
+drawCuadro(xQ1+90,yQ1+5,3,3,"Black");
+drawCuadro(xQ1+55,yQ1+40,3,3,"Black");
+drawCuadro(xQ1+90,yQ1+40,3,3,"Black");
+
+ctx.strokeRect(xQ1+50,yQ1,wQ,hQ);
+
+xQ2=50;
+yQ2=300;
+drawCuadro(xQ2,yQ2,wQ,hQ,"#FC9164");
+drawCuadro(xQ2+5,yQ2+5,3,3,"Black");
+drawCuadro(xQ2+5,yQ2+40,3,3,"Black");
+drawCuadro(xQ2+40,yQ2+5,3,3,"Black");
+drawCuadro(xQ2+40,yQ2+40,3,3,"Black");
+
+ctx.strokeRect(xQ2,yQ2,wQ,hQ);
+
+xQ3=840;
+yQ3=200;
+drawCuadro(xQ3,yQ3,wQ,hQ,"#FC9164");
+drawCuadro(xQ3+5,yQ3+5,3,3,"Black");
+drawCuadro(xQ3+5,yQ3+40,3,3,"Black");
+drawCuadro(xQ3+40,yQ3+5,3,3,"Black");
+drawCuadro(xQ3+40,yQ3+40,3,3,"Black");
+ctx.strokeRect(xQ3,yQ3,wQ,hQ);
+
+//PIPA
+drawCuadro(650,370,90,160,"#1E8706");
+
+drawCuadro(635,325,120,45,"#1E8706");
+
+//00E555
+xP=650;
+drawCuadro(xP+10,370,3.5,160,"#00E555");
+drawCuadro(xP+20,370,3.5,160,"#00E555");
+drawCuadro(xP+30,370,10,160,"#00E555");
+drawCuadro(xP+30,370,10,160,"#00E555");
+drawCuadro(xP+60,370,3,160,"Black");
+drawCuadro(xP+65,370,2,160,"Black");
+drawCuadro(xP+70,370,10,160,"Black");
+drawCuadro(xP+85,370,3,160,"Black");
+xP=635;
+xY=325
+hP=45;
+drawCuadro(xP+15,xY,3.5,hP,"#00E555");
+drawCuadro(xP+25,xY,3.5,hP,"#00E555");
+drawCuadro(xP+35,xY,10,hP,"#00E555");
+drawCuadro(xP+35,xY,10,hP,"#00E555");
+drawCuadro(xP+65,xY,3,hP,"Black");
+drawCuadro(xP+70,xY,2,hP,"Black");
+drawCuadro(xP+75,xY,10,hP,"Black");
+drawCuadro(xP+85,xY,10,hP,"Black");
+drawCuadro(xP+100,xY,3,hP,"Black");
+ctx.strokeRect(650,370,90,160);
+ctx.strokeRect(635,325,120,45,"#1E8706");
+
+
+
+
+function drawGround() {
+    ctx.fillStyle = "#FFAB74"; // Color crema
+    ctx.fillRect(0, canvas.height - 70, canvas.width + 20, 20);
+    ctx.strokeRect(0, canvas.height - 70, canvas.width + 20, 20);
+    ctx.fillStyle = '#CE7F4B'; // Color del suelo
+    ctx.fillRect(0, canvas.height - 50, canvas.width + 20, 50);
+    ctx.strokeRect(0, canvas.height - 50, canvas.width + 20, 50);
+  
+    const text = "}"; // Texto a rotar
+    const fontSize = 30; // Tamaño de fuente
+    const textColor = '#8C5520'; // Color del texto
+    const rotationAngle = (Math.PI / 180) * 315; // Ángulo de rotación (45 grados en radianes)
+  
+    let x = 15; // Posición inicial en X
+    const y = 575; // Posición en Y
+  
+    ctx.font = `${fontSize}px Impact`;
+    ctx.fillStyle = textColor;
+  
+    while (x < canvas.width) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(rotationAngle);
+      ctx.fillText(text, 0, 0);
+      ctx.restore();
+      x += 20;
+    }
+  }
+  
+
+  function drawCuadro( x, y, width, height, fillColor) {
+    ctx.fillStyle = fillColor; // Color de relleno del cuadro  
+    ctx.fillRect(x, y, width, height); // Dibuja el cuadro relleno
+   // ctx.strokeRect(x, y, width, height); // Dibuja el borde del cuadro
+  }
+
+  function drawLine( startX, startY, endX, endY, color, lineWidth) {
+    ctx.strokeStyle = color; // Color de la línea
+    ctx.lineWidth = lineWidth; // Ancho de la línea
+    ctx.beginPath();
+    ctx.moveTo(startX, startY); // Mueve el cursor al punto de inicio
+    ctx.lineTo(endX, endY); // Dibuja la línea hasta el punto final
+    ctx.stroke(); // Dibuja la línea
+    ctx.closePath();
+  }
+
+
+  function drawCircleWithDivider(centerX, centerY, radius, strokeColor, dividerColor, dividerWidth) {
+    ctx.strokeStyle = strokeColor; // Color del trazo del círculo
+    ctx.lineWidth = 2; // Ancho del trazo del círculo
+  
+    // Dibuja el círculo
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.closePath();
+  
+    // Dibuja la línea divisoria
+    ctx.strokeStyle = dividerColor; // Color de la línea divisoria
+    ctx.lineWidth = dividerWidth; // Ancho de la línea divisoria
+  
+    ctx.beginPath();
+    ctx.moveTo(centerX - radius, centerY - radius); // Inicio de la diagonal
+    ctx.lineTo(centerX + radius, centerY + radius); // Fin de la diagonal
+    ctx.stroke();
+    ctx.closePath();
+  }
+
+
+  function drawMarioBush(x, y) {
+    const bushColor = '#4CAF50'; // Verde
+    const highlightColor = '#81C784'; // Verde más claro
+
+    ctx.fillStyle = bushColor;
+    ctx.beginPath();
+    ctx.arc(x, y - 30, 40, 0, Math.PI * 2); // Arbusto principal, radio duplicado
+    ctx.arc(x - 20, y - 70, 20, 0, Math.PI * 2); // Resalte izquierdo, radio duplicado
+    ctx.arc(x + 20, y - 70, 20, 0, Math.PI * 2); // Resalte derecho, radio duplicado
+    ctx.fill();
+}
+  
+  
+
+  </script>
+
+
+</html>
