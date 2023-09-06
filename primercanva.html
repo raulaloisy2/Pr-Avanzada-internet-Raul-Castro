@@ -13,12 +13,22 @@
         border: 1px solid black;
         background-color: white;
     }
+
+    audio{
+        display:  none;
+    }
 </style>
 
 <body style="background-color: rgb(158, 142, 142)">
 
   <center> <canvas id="mycanvas"  width="500" height="500"> </canvas> </center> 
     <img id="img" src="pensando.png" style="display: none;" / >
+    <audio   id="miAudio">
+        <source src="InnocenceGlitched.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="coinSound">
+        <source src="coin.wav" type="audio/wav">
+    </audio>
 </body>
 
 <script>
@@ -26,6 +36,8 @@
     var figura = true;
     var color;
     var canvas = document.getElementById('mycanvas'); 
+    var coinSound = document.getElementById('coinSound');
+    var musica = document.getElementById('miAudio');
     var ctx = canvas.getContext('2d');
     var x =200 , y =200;
     var dir=0;
@@ -33,9 +45,19 @@
     var t_y=300;
     var t_w;
     var  w_x= 100, w_y= 100;
+    var  pause = false;
+    var speed = 8;
+    var score = 0;
+    var imagenPlayer = new Image();
+    var imagenCoin= new Image();
+    imagenCoin.src = "Penny.png"
+    imagenPlayer.src ="isaac.png";
 
 
+ 
 
+
+  
     class GenerarCuadro {
         constructor(x, y , w, h,) {
             this.x = x;
@@ -58,6 +80,7 @@
             this.h = h;
         }
     
+    
         pintar(ctx) {
             ctx.fillStyle = "Gray";
             ctx.fillRect(this.x, this.y, this.w, this.h);
@@ -72,16 +95,16 @@
                 // Colisión detectada
                 switch (dir) {
                     case 87: // Tecla "W"
-                       y += 16;                       
+                       y += speed*2;                       
                         break;
                     case 83: // Tecla "S"
-                       y -= 16;
+                       y -= speed*2;
                         break;
                     case 68: // Tecla "D"
-                        x -= 16;
+                        x -= speed*2;
                         break;
                     case 65: // Tecla "A"
-                        x += 16;
+                        x += speed*2;
                         break;
                     default:
                         break;
@@ -99,19 +122,19 @@
         }
     }
 
-
-
     function random_rgba() {
         var o = Math.round, r = Math.random, s = 255;
         return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')';
     }
 //JUGADOR
     var player = new GenerarCuadro(x, y,40,40);
+    ctx.drawImage(imagenPlayer, 0, 0);
  //WALL
     let walls = []
     walls.push(new GenerarPared(100, 100, 100, 20));
     walls.push(new GenerarPared(50, 400, 300,30));
- 
+//
+
  
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
@@ -129,24 +152,36 @@
     function repaint(){
 
        
+        if (!pause){
+
+
+            ctx.fillStyle = "aliceblue";
+            ctx.fillRect ( 0, 0,1000,1000);
+    
+            //Dibujar PLayer
+            //player.pintar(ctx);
+            ctx.drawImage(imagenPlayer, x, y,40,45);
+
+            
+    
+            ctx.fillStyle = "Black";
+            //ctx.fillRect (t_x,t_y  , 20,20);
+            ctx.drawImage(imagenCoin,t_x,t_y,20,20);
+    
+            
+            //Dibujar Paredes
+            GenerarPared.pintarParedes(ctx, walls);
+            // walls[0].pintar(ctx);
+        }else{
+            ctx.fillStyle="Black";
+            ctx.font = "30px Arial";
+            ctx.fillText("P A U S A ", 180 , 250);
+            ctx.fillStyle="rgba(138, 196, 172,0.1)";
+            ctx.fillRect(0,0,500,500);
+        
+        }
      
-     
-        ctx.fillStyle = "aliceblue";
-        ctx.fillRect ( 0, 0,1000,1000);
-
-        //Dibujar PLayer
-        player.pintar(ctx);
-        
-
-        ctx.fillStyle = "Black";
-        ctx.fillRect (t_x,t_y  , 50, 50);
-
-        
-        //Dibujar Paredes
-        GenerarPared.pintarParedes(ctx, walls);
-        // walls[0].pintar(ctx);
-        
-                
+      
                 
     }
 
@@ -159,22 +194,34 @@
         ctx.closePath();
          document.addEventListener("keydown", (e) => {
 
+                musica.play();
+            console.log(e.keyCode);
+
         switch(e.keyCode){
             case 87:
             dir=e.keyCode;
-                y-=8;
+                y-=speed;
                 break;
             case 65:    
             dir=e.keyCode;
-                x-=8;
+                x-=speed;
                 break;
             case 83:
             dir=e.keyCode;
-                y+=8;
+                y+=speed;
                  break;
             case 68:
             dir=e.keyCode;
                  x+8;
+                 break;
+                 case 81:
+                 console.log ("Pausa");
+                 if(!pause){
+                     pause=true;
+                 }
+                 else{
+                     pause=false;
+                 }
                  break;
 
              default:
@@ -182,48 +229,78 @@
         };
     });
         function update(){
-            
-            switch (dir) {
-                case 87:  
+            if(pause==false){
+                switch (dir) {
+                    case 87:  
+                    if (!pause){
+                        y -= speed;
+                      
+                        if(y<-50){y=550}
+                    }
+                   
+                        break;
+        
+                    case 83:
+                    if(pause==false){
+                        y += speed;
+                 
+                        if(y>550){y=0}
+                    }
+                        break;
+        
+                    case 68:
+                    if(pause==false){
+                        x += speed;
+                       
 
-                    y -= 8;
-                    if(y<-50){y=550}
-                    break;
-    
-                case 83:
-                    y += 8;
-                    if(y>550){y=0}
-                    break;
-    
-                case 68:
-                    x += 8;
-                    if(x>550){x=0}
-                    break;
-    
-                    case 65:
-                    x -= 8;
-                    if(x<-50){x=550}
-                    break;
-    
-                default:
-                    break;
+                        if(x>550){x=0}
+                    }
+                        break;
+        
+                        case 65:
+                        if(pause==false){
+                        x -= speed;
+            
+                        if(x<-50){x=550}
+                        }
+                        break;
+
+                        case 81:
+                        console.log ("Pausa");
+                        if(!pause){
+                            pause=true;
+                        }
+                        else{
+                            pause=false;
+                        }
+                        break;
+        
+                    default:
+                        break;
+                    }
+
+                if(x < t_x + 50  &&  x + 40 > t_x &&    y < t_y + 50 &&    y +40 > t_y){  
+                    
+                    console.log("+10 Puntos");
+                    coinSound.play();
+                    t_x= getRandomInt(460);
+                    t_y= getRandomInt(460);
+                    score+=10;
+                }
                 }
 
-            if(x < t_x + 50  &&  x + 40 > t_x &&    y < t_y + 50 &&    y +40 > t_y){  
-                
-                console.log("aaaaaaa");
-                t_x= getRandomInt(460);
-                t_y= getRandomInt(460);
-
-              }
-            verificarColisiones();
-            repaint();
-            window.requestAnimationFrame(update);    
+            
+                verificarColisiones();
+                repaint();
+                if(!pause){
+                    ctx.font = '20px Arial';
+                    ctx.fillStyle = 'Red';
+                    ctx.fillText('P U N T U A C I O N: '+ score , 30, 50);
+                }
+           
+                window.requestAnimationFrame(update);    
         }
      
-
-
-
         window.requestAnimationFrame = (function () {
             return window.requestAnimationFrame ||
                 window.webkitRequestAnimationFrame ||
