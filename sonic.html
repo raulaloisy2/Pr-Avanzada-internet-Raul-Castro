@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonic</title>
+</head>
+
+
+
+<style>
+    #mycanvas{
+        border: 1px solid black;
+        background-color: white;
+    }
+</style>
+
+
+<body style="background-color: rgb(158, 142, 142)">
+
+    <center> <canvas id="mycanvas"  width="1000" height="600"> </canvas> </center> 
+      <img id="img" src="pensando.png" style="display: none;" / >
+  </body>
+
+  <script>
+      // Define el rango de valores x y la escala
+    var palmeraY=50;
+    var funciones = Math.cos;
+    var canvas = document.getElementById('mycanvas'); 
+    var ctx = canvas.getContext('2d');
+
+
+//Ground    #1BC523
+drawGround();
+  
+
+
+var trianguloTamano=40;
+
+ctx.fillStyle="Brown";
+ctx.fillRect(520,100,20,280);
+palmera(520,50);
+palmera(600,80);
+palmera(450,100);
+
+ctx.fillStyle="Brown";
+ctx.fillRect(520-500,100,20,280);
+palmera(520-500,50);
+palmera(600-500,80);
+palmera(450-500,100);
+
+
+
+//Rings
+ring(100,300);
+ring(200,300);
+ring(300,300);
+
+
+//Girasol
+dibujarGirasol(800,300,80);
+
+function palmera(x,y){
+
+    
+    palmeraY=y;
+    palmera1X=x;
+    
+    dibujarTriangulo(ctx,palmera1X,palmeraY,trianguloTamano);
+    dibujarTriangulo(ctx,palmera1X+20,palmeraY+10,trianguloTamano);
+    dibujarTriangulo(ctx,palmera1X-20,palmeraY+20,trianguloTamano);
+    palmera1X-=50;
+    dibujarTriangulo(ctx,palmera1X,palmeraY+40,trianguloTamano);
+    dibujarTriangulo(ctx,palmera1X+20,palmeraY+60,trianguloTamano);
+    dibujarTriangulo(ctx,palmera1X-20,palmeraY+70,trianguloTamano);
+    palmera1X+=100;
+    dibujarTriangulo(ctx,palmera1X,palmeraY+40,trianguloTamano);
+    dibujarTriangulo(ctx,palmera1X+20,palmeraY+60,trianguloTamano);
+    dibujarTriangulo(ctx,palmera1X-20,palmeraY+70,trianguloTamano);
+    palmera1X-=50;
+    dibujarTriangulo(ctx,palmera1X,palmeraY+40,trianguloTamano);
+    dibujarTriangulo(ctx,palmera1X+20,palmeraY+60,trianguloTamano);
+    dibujarTriangulo(ctx,palmera1X-20,palmeraY+70,trianguloTamano);
+    palmera1X+=15;
+    dibujarTriangulo(ctx,palmera1X,palmeraY+40,trianguloTamano);
+    dibujarTriangulo(ctx,palmera1X+20,palmeraY+60,trianguloTamano);
+    dibujarTriangulo(ctx,palmera1X-20,palmeraY+70,trianguloTamano);
+    palmera1X-=trianguloTamano;
+    dibujarTriangulo(ctx,palmera1X,palmeraY+40,trianguloTamano);
+    dibujarTriangulo(ctx,palmera1X+20,palmeraY+60,trianguloTamano);
+    dibujarTriangulo(ctx,palmera1X-20,palmeraY+70,trianguloTamano);
+
+
+}
+
+
+function dibujarGirasol(x, y, tamaño) {
+
+    ctx.fillStyle = "green";
+    ctx.fillRect(x - tamaño / 10, y, tamaño / 5, tamaño);
+    ctx.fillStyle = "yellow";
+    for (var i = 0; i < 12; i++) {
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      var petaloX = x + Math.sin(i * Math.PI / 6) * (tamaño / 2);
+      var petaloY = y - Math.cos(i * Math.PI / 6) * (tamaño / 2);
+      ctx.lineTo(petaloX, petaloY);
+      petaloX = x + Math.sin((i + 1) * Math.PI / 6) * (tamaño / 2);
+      petaloY = y - Math.cos((i + 1) * Math.PI / 6) * (tamaño / 2);
+      ctx.lineTo(petaloX, petaloY);
+      ctx.closePath();
+      ctx.fill();
+    }
+       ctx.beginPath();
+       ctx.arc(x, y, tamaño / 4, 0, Math.PI * 2);
+       ctx.fillStyle = "brown";
+       ctx.fill();
+   
+  }
+
+function dibujarTriangulo(contexto, x, y, altura){
+    contexto.fillStyle = "green"; // Cambia el color según tus preferencias
+    // Calcula las coordenadas de los vértices restantes
+    const x1 = x;
+    const y1 = y;
+    const x2 = x - altura / 2;
+    const y2 = y + altura;
+    const x3 = x + altura / 2;
+    const y3 = y + altura;
+  
+    // Comienza el trazado del triángulo
+    contexto.beginPath();
+  
+    // Establece los vértices del triángulo
+    contexto.moveTo(x1, y1);
+    contexto.lineTo(x2, y2);
+    contexto.lineTo(x3, y3);
+    contexto.closePath();
+  
+    // Establece el color de relleno y rellena el triángulo
+    contexto.fillStyle = "#80E000"; // Cambia el color según tus preferencias
+    contexto.fill();
+  
+}
+
+  
+function drawGround() {
+
+    ctx.fillStyle="#2000A0",
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = "#80E000"; // Capa 1
+    ctx.fillRect(0, canvas.height - 220, canvas.width + 20, 300);
+    ctx.fillStyle = "#40A000"; // Capa 2
+    ctx.fillRect(0, canvas.height - 200, canvas.width + 20, 300);
+    ctx.fillStyle = "#006000"; // Capa 3
+    ctx.fillRect(0, canvas.height - 180, canvas.width + 20, 300);
+    pintarCuadros(0,canvas.height-160,45,10,false);
+    pintarCuadros(0,canvas.height-150,45,50,true);
+    pintarCuadros(0,canvas.height-100,45,50,false);
+    pintarCuadros(0,canvas.height-50,45,50,true);
+    ctx.fillStyle="rgb(0,0,0,0.6)";
+    ctx.fillRect(0,canvas.height-160,canvas.width,40);
+
+
+
+  }
+  
+  
+
+  function pintarCuadros(x,y,w,h, cuadro) {
+     // Tamaño de cada cuadro
+    var limiteCanvas = canvas.width; // Límite del canvas
+    // Itera mientras la posición x sea menor que el límite del canvas
+    while (x < limiteCanvas) {
+      // Dibuja un cuadro en la posición actual
+      if(!cuadro){
+        ctx.fillStyle="#C06000";
+        cuadro=true;
+      }else{
+        ctx.fillStyle="#602000";
+        cuadro=false;
+      }
+  
+      ctx.fillRect(x, y, w,h);
+      x += w;
+    }
+  }
+
+  function ring(x,y){
+    ctx.beginPath();
+    ctx.strokeStyle="yellow";
+    ctx.lineWidth = 5;
+    ctx.arc(x, y, 30, 0, 2 * Math.PI);
+    ctx.stroke(); // Dibuja el trazo del círcu
+    ctx.closePath();
+  }
+
+  function hojas(x,y){
+    //#80E000
+
+
+  }
+
+
+  </script>
+
+
+</html>
